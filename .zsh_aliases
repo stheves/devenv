@@ -1,0 +1,7 @@
+alias g='git'
+alias gc='git add -A && git commit -m'
+alias gup='git push'
+alias gp='git pull'
+alias gl='git log --pretty=oneline'
+alias d='docker'
+alias dup='docker-compose up -d'
