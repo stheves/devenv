@@ -1,0 +1,12 @@
+[user]
+	email = sascha@theves.io
+	name = Sascha Theves
+[core]
+  editor = vim
+	autocrlf = true
+[diff]
+  external = vimdiff
+[merge]
+	tool = vimdiff
+[pull]
+	rebase = true
