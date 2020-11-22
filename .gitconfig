@@ -3,7 +3,7 @@
 	name = Sascha Theves
 [core]
   editor = vim
-	autocrlf = true
+	autocrlf = input
 [diff]
   external = vimdiff
 [merge]
