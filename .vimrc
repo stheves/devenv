@@ -3,28 +3,12 @@ filetype off     " required
 
 " Keep Plug commands between plug#begin() and plug#end().
 call plug#begin()
-
-Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
-Plug 'tpope/vim-fugitive'         " :Gblame
-
-Plug 'tpope/vim-endwise'          " Autocomplete end after a do
-Plug 'mileszs/ack.vim'            " Use ack in Vim
-
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " TypeScript syntax
 Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
-Plug 'peitalin/vim-jsx-typescript' " TSX syntax
-Plug 'styled-components/vim-styled-components'
-
-Plug 'vim-airline/vim-airline'    " Vim powerline
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'           " Set up fzf and fzf.vim
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'joshdick/onedark.vim'
-
+Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
 " All of your Plugins must be added before the following line
 call plug#end()              " required
 filetype plugin indent on    " required
@@ -39,6 +23,7 @@ set wildmenu " when opening a file with e.g. :e ~/.vim<TAB> there is a graphical
 set ttyfast
 set lazyredraw
 set updatetime=300
+colorscheme dracula
 
 " Numbers
 set number
@@ -124,10 +109,6 @@ nnoremap <silent><leader>\ :vs<CR>
 " Split screen
 nnoremap <silent><leader>/ :split<CR>
 
-" Moving line around
-nnoremap <A-i> :m .+1<CR>
-nnoremap <A-k> :m .-2<CR>
-
 " Faster saving and exiting
 nnoremap <silent><leader>w :w!<CR>
 nnoremap <silent><leader>q :q!<CR>
@@ -142,16 +123,16 @@ nnoremap <leader>rn :set relativenumber!<cr>
 
 " If fzf installed using git
 set rtp+=~/.fzf
-" Map fzf search to CTRL G
-nnoremap <C-g> :GFiles<Cr>
+" Map fzf search to CTRL P
+nnoremap <C-p> :GFiles<Cr>
 " Map fzf + ag search to CTRL P
-nnoremap <C-p> :Ag<Cr>
+nnoremap <C-g> :Ag<Cr>
 
 " vim-test shortcut for running tests
 nnoremap <silent><leader>; :TestNearest<CR>
 nnoremap <silent><leader>' :TestFile<CR>
 
-" Open a file. Extra <CR> is for disabling /"Press ENTER or type command to continue/"
+" Extra <CR> is for disabling /"Press ENTER or type command to continue/"
 nnoremap <silent><leader>e :Exp<CR><CR>
 
 " Easier movement between split windows CTRL + {h, j, k, l}
@@ -164,10 +145,14 @@ nnoremap <c-l> <c-w>l
 let g:coc_global_extensions = ['coc-solargraph', 'coc-tsserver', 'coc-json']
 
 " Add CoC Prettier if prettier is installed
-let g:coc_global_extensions += ['coc-prettier']
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
 
 " Add CoC ESLint if ESLint is installed
-let g:coc_global_extensions += ['coc-eslint']
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -176,29 +161,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
-
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
-
-" GoTo next/prev diagnostics
-nmap <F8> <Plug>(coc-diagnostic-next)
-nmap <S-F8> <Plug>(coc-diagnostic-prev)
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-
-" use <c-space>for trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" organize imports in a ts file
-nmap <leader>o :CocCommand tsserver.organizeImports<CR>
 
 let g:fugitive_pty = 0

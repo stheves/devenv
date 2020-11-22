@@ -1,5 +1,5 @@
 alias g='git'
-alias gs=`git status`
+alias gs='git status'
 alias gc='git add -A && git commit'
 alias gp='git push'
 alias gf='git pull'
