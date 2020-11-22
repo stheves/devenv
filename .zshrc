@@ -89,4 +89,7 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-source ~/.zsh_aliases
+source $HOME/.zsh_aliases
+
+# Install Plugins
+#zplug "dracula/zsh", as:theme

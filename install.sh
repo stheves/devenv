@@ -1,8 +1,11 @@
 # oh-my-zsh
 curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 
+# zsh plugin manager
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
 # zsh
-brew install zsh
+#brew install zsh
 
 # silver surfer
 brew install the_silver_surfer
